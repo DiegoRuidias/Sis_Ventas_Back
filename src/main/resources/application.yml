@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ventas
+  datasource:
+    url: jdbc:postgresql://viaduct.proxy.rlwy.net:13476/railway
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: IuqHqBidTpHJuINaboBzfMcqfczsqjJV
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+server:
+  port: 8090
+  servlet:
+    context-path: /api/v1
