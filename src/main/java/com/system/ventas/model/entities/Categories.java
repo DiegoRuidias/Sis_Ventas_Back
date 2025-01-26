@@ -2,12 +2,14 @@ package com.system.ventas.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
@@ -29,7 +31,7 @@ public class Categories {
     private String id;
 
     @Size(max = 255)
-    @NotNull(message = "El campo de nombre no debe ser nulo")
+    @NotBlank(message = "El campo de nombre no debe ser nulo")
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -37,8 +39,8 @@ public class Categories {
     @Column(name = "description")
     private String description;
 
-    @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")

@@ -1,7 +1,7 @@
 package com.system.ventas.repository;
 
 import com.system.ventas.model.entities.PettyCash;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PettyCashRepository extends CrudRepository<PettyCash, Integer> {
+public interface PettyCashRepository extends JpaRepository<PettyCash, Integer> {
 }

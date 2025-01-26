@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -42,16 +43,16 @@ public class PettyCash {
 
     @NotNull
     @Column(name = "total_init", nullable = false)
-    private Double totalInit;
+    private BigDecimal totalInit;
 
     @Column(name = "total_cash")
-    private Double totalCash;
+    private BigDecimal totalCash;
 
     @Column(name = "total_pos")
-    private Double totalPos;
+    private BigDecimal totalPos;
 
     @Column(name = "total_bim")
-    private Double totalBim;
+    private BigDecimal totalBim;
 
     @NotNull
     @Column(name = "is_active", nullable = false)
