@@ -18,7 +18,9 @@ public class StoreServiceImpl implements StoreService {
     private StoreRepository storeRepository;
 
     @Override
-    public List<Store> findAll(){return storeRepository.findAll();}
+    public List<Store> findAll(){
+        return storeRepository.findAll();
+    }
 
     @Transactional
     @Override
