@@ -1,4 +1,14 @@
 package com.system.ventas.service;
 
-public interface ProductsService {
-}
+import com.system.ventas.model.dto.ProductDTO;
+import com.system.ventas.model.dto.ReorderIntDTO;
+import com.system.ventas.model.entities.Products;
+
+import java.util.List;
+import java.util.Set;
+
+public interface ProductService {
+    void create(ProductDTO product);
+    void reorder(Set<ReorderIntDTO> reorder);
+    List<Products> findByStoreId (String storeId);
+ }

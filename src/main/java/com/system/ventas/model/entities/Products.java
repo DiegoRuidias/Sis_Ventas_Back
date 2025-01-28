@@ -1,5 +1,6 @@
 package com.system.ventas.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -30,6 +33,10 @@ public class Products {
     @Size(max = 255)
     @Column(name = "barcode")
     private String barcode;
+
+    @NotNull(message = "El campo de orden no debe ser nulo")
+    @Column(name = "sort", nullable = false)
+    private Integer sort;
 
     @Size(max = 60)
     @NotNull(message = "El campo de nombre no debe ser nulo")
@@ -57,24 +64,40 @@ public class Products {
     private BigDecimal priceVent;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = false;
+    private Boolean isActive = true;
 
     @Column(name = "is_igv", nullable = false)
-    private Boolean isIgv = false;
+    private Boolean isIgv = true;
 
+    @Column(name = "boxes")
+    private Integer boxes;
+
+    @Column(name = "measure_box", precision = 10, scale = 2)
+    private BigDecimal measureBox;
+
+    @Column(name = "price_box", precision = 5, scale = 2)
+    private BigDecimal priceBox;
+
+    @NotNull
+    @Column(name = "is_box", nullable = false)
+    private Boolean isBox = false;
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Categories category;
 
-    @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
