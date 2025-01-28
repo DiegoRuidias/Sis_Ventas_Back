@@ -3,10 +3,12 @@ package com.system.ventas.model.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 public class PettyCashDTO {
     private String reference;
-    private Double totalInit;
+    private BigDecimal totalInit;
     private Integer userId;
 }

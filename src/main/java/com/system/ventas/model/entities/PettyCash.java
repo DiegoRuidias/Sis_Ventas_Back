@@ -12,7 +12,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,18 +29,18 @@ public class PettyCash {
     private Integer id;
 
     @Size(max = 10)
-    @NotNull
+    @NotNull(message = "La referencia no debe ser nula")
     @Column(name = "reference", nullable = false, length = 10)
     private String reference;
 
-    @NotNull
+    @NotNull(message = "La fecha de apertura de la caja no debe ser nula")
     @Column(name = "start_petty", nullable = false)
     private LocalDateTime startPetty;
 
-    @Column(name = "end_petty", nullable = false)
+    @Column(name = "end_petty")
     private LocalDateTime endPetty;
 
-    @NotNull
+    @NotNull(message = "El monto inicial total no debe ser nulo")
     @Column(name = "total_init", nullable = false)
     private BigDecimal totalInit;
 
@@ -56,7 +55,7 @@ public class PettyCash {
 
     @NotNull
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = false;
+    private Boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
