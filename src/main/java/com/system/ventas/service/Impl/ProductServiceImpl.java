@@ -53,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
         products.setMeasureBox(BigDecimal.valueOf(0));
         products.setStore(store);
         products.setCategory(categories);
+        products.setBoxes(0);
         productsRepository.save(products);
 
     }

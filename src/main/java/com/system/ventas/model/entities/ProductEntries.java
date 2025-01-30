@@ -1,5 +1,7 @@
 package com.system.ventas.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -18,7 +21,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","deletedAt","createdAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "product_entries")
 public class ProductEntries {
@@ -32,7 +35,7 @@ public class ProductEntries {
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @NotNull
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Products product;
@@ -64,18 +67,36 @@ public class ProductEntries {
     @Column(name = "price_vent", nullable = false, precision = 5, scale = 2)
     private BigDecimal priceVent;
 
-    @NotNull
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
     @Column(name = "is_igv", nullable = false)
     private Boolean isIgv = false;
 
+    @Column(name = "boxes")
+    private Integer boxes;
+
+    @Column(name = "measure_box", precision = 10, scale = 2)
+    private BigDecimal measureBox;
+
+    @Column(name = "price_box", precision = 5, scale = 2)
+    private BigDecimal priceBox;
+
     @NotNull
+    @Column(name = "is_box", nullable = false)
+    private Boolean isBox = false;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
 
 }
