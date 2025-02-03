@@ -56,7 +56,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 return;
             } catch (Exception e) {
                 System.out.println("Error parsing JWT token: " + e.getMessage());
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
         }
