@@ -6,6 +6,7 @@ import com.system.ventas.model.entities.Products;
 import com.system.ventas.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,18 @@ public class ProductController {
     }
 
     @GetMapping("/{storeId}")
-    public ResponseEntity<List<Products>> create(@PathVariable String storeId) {
+    public ResponseEntity<List<Products>> findByStore(@PathVariable String storeId) {
         List<Products> response = productService.findByStoreId(storeId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/store")
+    public ResponseEntity<PagedModel<Products>> findByStorePaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam String storeId,
+            @RequestParam(required = false) String searchText ) {
+        PagedModel<Products> response = productService.findByStoreIdPaged(page, size, storeId, searchText);
         return ResponseEntity.ok(response);
     }
 }

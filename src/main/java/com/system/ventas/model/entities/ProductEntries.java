@@ -46,7 +46,7 @@ public class ProductEntries {
 
     @NotNull(message = "El stock no debe ser nulo")
     @Column(name = "stock", nullable = false)
-    private Integer stock;
+    private BigDecimal stock;
 
     @NotNull(message = "El total de compras no debe ser nulo")
     @Column(name = "total_com", nullable = false, precision = 10, scale = 2)

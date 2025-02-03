@@ -54,7 +54,7 @@ public class Products {
 
     @NotNull(message = "El campo stock no debe ser nulo")
     @Column(name = "stock", nullable = false)
-    private Integer stock;
+    private BigDecimal stock;
 
     @NotNull(message = "El precio de compra no debe ser nulo")
     @Column(name = "price_com", nullable = false, precision = 10, scale = 2)
@@ -82,6 +82,11 @@ public class Products {
     @NotNull
     @Column(name = "is_box", nullable = false)
     private Boolean isBox = false;
+
+    @JsonIgnore
+    @Size(max = 600)
+    @Column(name = "search_text", length = 600)
+    private String searchText;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
