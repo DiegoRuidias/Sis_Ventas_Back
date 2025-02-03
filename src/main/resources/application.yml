@@ -7,11 +7,13 @@ spring:
     username: postgres
     password: IuqHqBidTpHJuINaboBzfMcqfczsqjJV
   jpa:
+    generate-ddl: false
     show-sql: true
-    hibernate:
-      ddl-auto: none
     open-in-view: false
 server:
   port: 8090
   servlet:
     context-path: /api
+jwt:
+  secret: dxvm7ucUwvwDslNrHOUZKHj17EA2dd5ujb9pqUgiXhg=
+  expiration: '600000000'

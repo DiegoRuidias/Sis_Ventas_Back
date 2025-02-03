@@ -11,7 +11,7 @@ public class ProductEntriesDTO {
     private Integer id;
     private String description;
     private String measure;
-    private Integer stock;
+    private BigDecimal stock;
     private BigDecimal totalCom;
     private BigDecimal priceCom;
     private BigDecimal priceVent;

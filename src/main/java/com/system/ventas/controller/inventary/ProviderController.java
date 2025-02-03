@@ -1,7 +1,6 @@
-package com.system.ventas.controller.system;
+package com.system.ventas.controller.inventary;
 
 import com.system.ventas.model.entities.Provider;
-import com.system.ventas.model.entities.Store;
 import com.system.ventas.service.ProviderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

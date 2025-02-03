@@ -34,15 +34,11 @@ public class Sales {
 
     @NotNull(message = "El campo metodo no debe ser nulo")
     @Column(name = "method", nullable = false)
-    private Integer method;
+    private String method;
 
     @NotNull(message = "El tipo de documento no debe ser nulo")
     @Column(name = "type_document", nullable = false)
-    private Integer typeDocument;
-
-    @NotNull(message = "El campo cantidad no debe ser nulo")
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    private String typeDocument;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

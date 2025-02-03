@@ -37,7 +37,7 @@ public class ProductEntriesServiceImpl implements ProductEntriesService {
     public void create(ProductEntriesDTO request) {
         Products products = productsRepository.findById(request.getProductId())
                 .orElseThrow(() -> new BusinessException("El producto ingresado no existe."));
-        products.setStock(products.getStock() + request.getStock());
+        products.setStock(products.getStock().add(request.getStock()));
         products.setPriceVent(request.getPriceVent());
         products.setPriceCom(request.getPriceCom());
 

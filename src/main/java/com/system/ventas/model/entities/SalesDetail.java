@@ -3,6 +3,7 @@ package com.system.ventas.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,9 +27,24 @@ public class SalesDetail {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotNull
+    @Column(name = "is_box", nullable = false)
+    private Boolean isBox = false;
+
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "measure", nullable = false, length = 50)
+    private String measure;
+
+    @Column(name = "boxes")
+    private Integer boxes;
+
+    @Column(name = "measure_box", precision = 10, scale = 2)
+    private BigDecimal measureBox;
+
     @NotNull(message = "El campo cantidad no debe ser nulo")
     @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    private BigDecimal quantity;
 
     @NotNull(message = "El precio de venta no debe ser nulo")
     @Column(name = "price_vent", nullable = false, precision = 10, scale = 2)
@@ -41,9 +57,6 @@ public class SalesDetail {
     @NotNull(message = "El total de compras no debe ser nulo")
     @Column(name = "total_com", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalCom;
-
-    @Column(name = "total_igv", precision = 10, scale = 2)
-    private BigDecimal totalIgv;
 
     @NotNull(message = "El total de ventas no debe ser nulo")
     @Column(name = "total_vent", nullable = false, precision = 10, scale = 2)
@@ -64,5 +77,4 @@ public class SalesDetail {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
-
 }

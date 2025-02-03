@@ -1,4 +1,4 @@
-package com.system.ventas.controller.system;
+package com.system.ventas.controller.inventary;
 
 import com.system.ventas.model.dto.ProductEntriesDTO;
 import com.system.ventas.model.entities.ProductEntries;

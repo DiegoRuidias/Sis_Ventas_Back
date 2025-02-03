@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
         products.setName(product.getName());
         products.setIsBox(product.getIsBox());
         products.setIsActive(true);
-        products.setStock(0);
+        products.setStock(BigDecimal.valueOf(0));
         products.setPriceCom(BigDecimal.valueOf(0));
         products.setPriceVent(BigDecimal.valueOf(0));
         products.setMeasure(product.getMeasure());
