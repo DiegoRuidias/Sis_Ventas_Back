@@ -1,5 +1,7 @@
 package com.system.ventas.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -18,7 +21,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","createdAt","deletedAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sales_detail")
 public class SalesDetail {
@@ -62,19 +65,28 @@ public class SalesDetail {
     @Column(name = "total_vent", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalVent;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Products product;
 
     @NotNull
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sales_id", nullable = false)
     private Sales sales;
 
+    @Size(max = 255)
     @NotNull
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+
 }
