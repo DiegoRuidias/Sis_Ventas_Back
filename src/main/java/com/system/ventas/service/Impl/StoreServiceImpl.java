@@ -25,6 +25,8 @@ public class StoreServiceImpl implements StoreService {
     @Transactional
     @Override
     public Store save(Store store) {
+        store.setSort(1);
+        store.setIsActive(true);
         return storeRepository.save(store);
     }
 

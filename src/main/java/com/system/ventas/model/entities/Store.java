@@ -30,7 +30,6 @@ public class Store {
     @Column(name = "id", nullable = false, length = 36)
     private String id;
 
-    @NotNull(message = "El campo de orden no debe ser nulo")
     @Column(name = "sort", nullable = false)
     private Integer sort;
 
