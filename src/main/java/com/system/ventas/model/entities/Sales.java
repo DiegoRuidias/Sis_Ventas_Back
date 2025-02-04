@@ -8,24 +8,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","createdAt","deletedAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sales")
 public class Sales {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private String id;
 
     @Size(max = 50)
     @NotNull(message = "El campo de codigo no debe ser nulo")
@@ -40,7 +42,7 @@ public class Sales {
     @Column(name = "type_document", nullable = false)
     private String typeDocument;
 
-    @NotNull
+    @JsonIgnoreProperties
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pettycash_id", nullable = false)
     private PettyCash pettycash;
@@ -68,11 +70,14 @@ public class Sales {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "sales")
+    private List<SalesDetail> salesDetails = new ArrayList<>();
 
 }
