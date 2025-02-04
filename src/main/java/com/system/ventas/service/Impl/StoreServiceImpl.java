@@ -1,15 +1,18 @@
 package com.system.ventas.service.Impl;
 
 import com.system.ventas.exception.BusinessException;
+import com.system.ventas.model.dto.ReorderDTO;
 import com.system.ventas.model.entities.Store;
 import com.system.ventas.repository.StoreRepository;
 import com.system.ventas.service.StoreService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service("storeService")
 public class StoreServiceImpl implements StoreService {
@@ -19,7 +22,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<Store> findAll(){
-        return storeRepository.findAll();
+        return storeRepository.findAll(Sort.by("sort"));
     }
 
     @Transactional
@@ -39,6 +42,15 @@ public class StoreServiceImpl implements StoreService {
         entity.setDescription(store.getDescription());
         entity.setRuc(store.getRuc());
         return entity;
+    }
+
+    @Transactional
+    @Override
+    public void reorder(Set<ReorderDTO> reorder) {
+        reorder.forEach(item -> {
+            Optional<Store> entity = storeRepository.findById(item.id());
+            entity.ifPresent(store -> store.setSort(item.sort()));
+        });
     }
 
 }

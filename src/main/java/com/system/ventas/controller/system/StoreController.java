@@ -1,5 +1,6 @@
 package com.system.ventas.controller.system;
 
+import com.system.ventas.model.dto.ReorderDTO;
 import com.system.ventas.model.entities.Store;
 import com.system.ventas.service.StoreService;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/v1/system/store")
@@ -32,6 +34,12 @@ public class StoreController {
     public ResponseEntity<Store> update(@Valid @RequestBody Store request) {
         Store response = storeService.update(request);
         return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/reorder")
+    public ResponseEntity<Boolean> reorder(@Valid @RequestBody Set<ReorderDTO> request) {
+        storeService.reorder(request);
+        return ResponseEntity.ok(true);
     }
 }
 
