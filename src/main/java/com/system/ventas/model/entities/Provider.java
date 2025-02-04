@@ -49,7 +49,6 @@ public class Provider {
     @Column(name = "document_number", nullable = false, length = 20)
     private String documentNumber;
 
-    @NotNull(message = "El indicador de activo o inactivo no debe ser nulo")
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 

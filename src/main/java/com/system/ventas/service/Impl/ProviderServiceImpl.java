@@ -24,6 +24,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Transactional
     @Override
     public Provider save(Provider provider) {
+        provider.setIsActive(true);
         return providerRepository.save(provider);
     }
 
