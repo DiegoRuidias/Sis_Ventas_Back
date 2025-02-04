@@ -5,6 +5,7 @@ import com.system.ventas.repository.CustomersRepository;
 import com.system.ventas.service.CustormersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,4 +19,11 @@ public class CustomersServiceImpl implements CustormersService {
     public List<Customers> findAll() {
         return customersRepository.findAll();
     }
+
+    @Transactional
+    @Override
+    public Customers create(Customers customers) {
+        return customersRepository.save(customers);
+    }
+
 }

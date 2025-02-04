@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CustormersService {
     List<Customers> findAll();
+    Customers create(Customers customers);
 }

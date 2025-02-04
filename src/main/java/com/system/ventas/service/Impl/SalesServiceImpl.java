@@ -98,7 +98,8 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public List<Sales> findByDate() {
-        return salesRepository.findAllByDate();
+    public List<Sales> findByDate(LocalDateTime date) {
+        LocalDateTime endOfDay = date.plusDays(1);
+        return salesRepository.findAllByDate(date, endOfDay);
     }
 }
