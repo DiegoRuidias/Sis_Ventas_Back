@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","deletedAt","createdAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "Petty_Cash")
 public class PettyCash {

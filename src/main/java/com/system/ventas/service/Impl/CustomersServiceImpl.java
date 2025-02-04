@@ -4,6 +4,7 @@ import com.system.ventas.model.entities.Customers;
 import com.system.ventas.repository.CustomersRepository;
 import com.system.ventas.service.CustormersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class CustomersServiceImpl implements CustormersService {
 
     @Override
     public List<Customers> findAll() {
-        return customersRepository.findAll();
+        return customersRepository.findAll(Sort.by("documentNumber"));
     }
 
     @Transactional

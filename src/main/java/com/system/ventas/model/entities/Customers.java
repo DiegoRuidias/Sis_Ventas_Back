@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","deletedAt","createdAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "customers")
 public class Customers {
@@ -41,8 +42,8 @@ public class Customers {
     @Column(name = "document_number", nullable = false, length = 20)
     private String documentNumber;
 
-    @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")

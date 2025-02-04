@@ -87,6 +87,4 @@ public class SalesDetail {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
-
-
 }

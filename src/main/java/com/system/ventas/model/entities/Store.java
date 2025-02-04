@@ -1,6 +1,5 @@
 package com.system.ventas.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","deletedAt","createdAt"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","deletedAt","createdAt","updatedAt"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "store")
 public class Store {
@@ -53,7 +52,6 @@ public class Store {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @JsonIgnore
     @Column(name = "updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
