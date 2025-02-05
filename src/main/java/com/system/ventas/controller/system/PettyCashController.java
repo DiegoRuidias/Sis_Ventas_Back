@@ -23,6 +23,12 @@ public class PettyCashController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/active/{userId}")
+    public ResponseEntity<Boolean> activeUser(@PathVariable Integer userId){
+         Boolean response = pettyCashService.activeById(userId);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<PettyCash> create(@Valid @RequestBody PettyCashDTO request){
         PettyCash response = pettyCashService.create(request);

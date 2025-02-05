@@ -5,6 +5,7 @@ import com.system.ventas.model.entities.Sales;
 import com.system.ventas.service.Impl.SalesServiceImpl;
 import com.system.ventas.service.SalesService;
 import jakarta.validation.Valid;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,17 @@ public class SalesController {
 
     @GetMapping
     public ResponseEntity<List<Sales>> findAll(
-            @RequestParam (required = false) LocalDateTime date ) {
+            @RequestParam LocalDateTime date ) {
         List<Sales> response = salesService.findByDate(date);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<PagedModel<Sales>> findPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam LocalDateTime date) {
+        PagedModel<Sales> response = salesService.findByDatePaged(page,size,date) ;
         return ResponseEntity.ok(response);
     }
 }
