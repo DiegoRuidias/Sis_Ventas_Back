@@ -3,7 +3,9 @@ package com.system.ventas.service.Impl;
 import com.system.ventas.exception.BusinessException;
 import com.system.ventas.model.dto.PettyCashDTO;
 import com.system.ventas.model.entities.PettyCash;
+import com.system.ventas.model.entities.Users;
 import com.system.ventas.repository.PettyCashRepository;
+import com.system.ventas.repository.UsersRepository;
 import com.system.ventas.service.PettyCashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.List;
 public class PettyCashServiceImpl implements PettyCashService {
     @Autowired
     private PettyCashRepository pettyCashRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Override
     public List<PettyCash> findAll() {
@@ -26,6 +30,8 @@ public class PettyCashServiceImpl implements PettyCashService {
     @Transactional
     @Override
     public PettyCash create(PettyCashDTO pettyCashDTO) {
+        Users user = usersRepository.findById(pettyCashDTO.getUserId())
+                .orElseThrow(() -> new BusinessException("Usuario no encontrado"));
         PettyCash pettyCash = new PettyCash();
         pettyCash.setReference(pettyCashDTO.getReference());
         pettyCash.setStartPetty(LocalDateTime.now());
@@ -33,6 +39,7 @@ public class PettyCashServiceImpl implements PettyCashService {
         pettyCash.setTotalCash(BigDecimal.valueOf(0.0));
         pettyCash.setTotalPos(BigDecimal.valueOf(0.0));
         pettyCash.setTotalBim(BigDecimal.valueOf(0.0));
+        pettyCash.setUser(user);
         pettyCash.setIsActive(true);
         return pettyCashRepository.save(pettyCash);
     }
@@ -52,6 +59,21 @@ public class PettyCashServiceImpl implements PettyCashService {
         PettyCash entity = pettyCashRepository.findById(id)
                 .orElseThrow(()-> new BusinessException("No se encontro la caja seleccionada"));
         entity.setDeletedAt(LocalDateTime.now());
+    }
+
+    @Override
+    public Boolean activeById(Integer userId) {
+        int response = pettyCashRepository.findPettyCashActive(userId);
+        return response != 0;
+    }
+
+    @Transactional
+    @Override
+    public void update(Integer userId, BigDecimal totalPos, BigDecimal totalCash) {
+        int response = pettyCashRepository.updateAmounts(userId, totalPos, totalCash);
+        if(response == 0){
+            throw new BusinessException("No se encontro la caja seleccionada");
+        }
     }
 
 

@@ -4,7 +4,11 @@ import com.system.ventas.exception.BusinessException;
 import com.system.ventas.model.dto.SalesDTO;
 import com.system.ventas.model.entities.*;
 import com.system.ventas.repository.*;
+import com.system.ventas.service.PettyCashService;
 import com.system.ventas.service.SalesService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service("salesService")
@@ -22,13 +27,15 @@ public class SalesServiceImpl implements SalesService {
     private final SalesDetailRepository salesDetailRepository;
     private final CustomersRepository customersRepository;
     private final UsersRepository usersRepository;
+    private final PettyCashService pettyCashService;
 
-    public SalesServiceImpl(SalesRepository salesRepository, ProductsRepository productsRepository, SalesDetailRepository salesDetailRepository, CustomersRepository customersRepository, UsersRepository usersRepository) {
+    public SalesServiceImpl(SalesRepository salesRepository, ProductsRepository productsRepository, SalesDetailRepository salesDetailRepository, CustomersRepository customersRepository, UsersRepository usersRepository, PettyCashService pettyCashService) {
         this.salesRepository = salesRepository;
         this.productsRepository = productsRepository;
         this.salesDetailRepository = salesDetailRepository;
         this.customersRepository = customersRepository;
         this.usersRepository = usersRepository;
+        this.pettyCashService = pettyCashService;
     }
 
     @Transactional
@@ -93,6 +100,11 @@ public class SalesServiceImpl implements SalesService {
             salesDetails.add(salesDetail);
             totalCom[0] = totalCom[0].add(salesDetail.getTotalCom());
         });
+        if(Objects.equals(sales.getMethod(), "Efectivo")){
+            pettyCashService.update(sales.getUserId(), BigDecimal.ZERO,sales.getTotalVent());
+        }else {
+            pettyCashService.update(sales.getUserId(), sales.getTotalVent(),BigDecimal.ZERO);
+        }
         saveEntity.setTotalCom(totalCom[0]);
         salesDetailRepository.saveAll(salesDetails);
     }
@@ -101,5 +113,13 @@ public class SalesServiceImpl implements SalesService {
     public List<Sales> findByDate(LocalDateTime date) {
         LocalDateTime endOfDay = date.plusDays(1);
         return salesRepository.findAllByDate(date, endOfDay);
+    }
+
+    @Override
+    public PagedModel<Sales> findByDatePaged(int page, int size,LocalDateTime date) {
+        LocalDateTime endOfDay = date.plusDays(1);
+        PageRequest pageable = PageRequest.of(page, size);
+        Page<Sales> response = salesRepository.findPagedSales(pageable,date,endOfDay);
+        return new PagedModel<>(response);
     }
 }
