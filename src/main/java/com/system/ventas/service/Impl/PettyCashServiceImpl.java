@@ -58,7 +58,7 @@ public class PettyCashServiceImpl implements PettyCashService {
     public void deletePetty(Integer id) {
         PettyCash entity = pettyCashRepository.findById(id)
                 .orElseThrow(()-> new BusinessException("No se encontro la caja seleccionada"));
-        entity.setDeletedAt(LocalDateTime.now());
+        pettyCashRepository.delete(entity);
     }
 
     @Override

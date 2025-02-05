@@ -47,15 +47,14 @@ public class SalesServiceImpl implements SalesService {
                 .orElseThrow(() -> new BusinessException("El usuario no existe"));
 
         Sales entity = new Sales();
-        entity.setId(UUID.randomUUID().toString());
         entity.setMethod(sales.getMethod());
-        entity.setCode("sddsds");
         entity.setTypeDocument(sales.getTypeDocument());
         entity.setDate(LocalDateTime.now());
         entity.setTotalCom(BigDecimal.ZERO);
         entity.setTotalIgv(sales.getTotalIgv());
         entity.setTotalVent(sales.getTotalVent());
         Sales saveEntity = salesRepository.save(entity);
+        entity.setCode("VENT" + entity.getId());
         saveEntity.setCustomer(customer);
         saveEntity.setUser(user);
 

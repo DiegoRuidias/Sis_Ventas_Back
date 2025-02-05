@@ -1,5 +1,6 @@
 package com.system.ventas.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,11 +28,12 @@ import java.util.List;
 public class Sales {
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Size(max = 50)
-    @NotNull(message = "El campo de codigo no debe ser nulo")
-    @Column(name = "code", nullable = false, length = 50)
+//    @NotNull(message = "El campo de codigo no debe ser nulo")
+//    @Column(name = "code", nullable = false, length = 50)
     private String code;
 
     @NotNull(message = "El campo metodo no debe ser nulo")
@@ -42,10 +44,10 @@ public class Sales {
     @Column(name = "type_document", nullable = false)
     private String typeDocument;
 
-    @JsonIgnoreProperties
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pettycash_id", nullable = false)
-    private PettyCash pettycash;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "pettycash_id")
+//    private PettyCash pettycash;
 
     @NotNull(message = "El total de las compras no debe ser nulo")
     @Column(name = "total_com", nullable = false, precision = 10, scale = 2)

@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface PettyCashRepository extends JpaRepository<PettyCash, Integer> {
-    @Query("SELECT p FROM PettyCash p JOIN FETCH p.user WHERE p.deletedAt IS NULL")
+    @Query("SELECT p FROM PettyCash p JOIN FETCH p.user")
     List<PettyCash> findAllPettyCash();
 
-    @Query("SELECT COUNT(p) FROM PettyCash p JOIN p.user u WHERE (p.deletedAt IS NULL) AND (p.isActive = true) AND (u.id =:userId)")
+    @Query("SELECT COUNT(p) FROM PettyCash p JOIN p.user u WHERE (p.isActive = true) AND (u.id =:userId)")
     int findPettyCashActive(Integer userId);
 
     @Modifying
-    @Query("UPDATE PettyCash p SET p.totalPos = p.totalPos + :totalPos, p.totalCash = p.totalCash + :totalCash WHERE (p.deletedAt IS NULL) AND (p.isActive = true) AND (p.user.id =:userId)")
+    @Query("UPDATE PettyCash p SET p.totalPos = p.totalPos + :totalPos, p.totalCash = p.totalCash + :totalCash WHERE (p.isActive = true) AND (p.user.id =:userId)")
     int updateAmounts(Integer userId, BigDecimal totalPos, BigDecimal totalCash);
 }
