@@ -33,4 +33,10 @@ public class ProviderController {
         Provider response = providerService.update(request);
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable String id){
+        providerService.deleteProvider(id);
+        return ResponseEntity.ok(true);
+    }
 }
