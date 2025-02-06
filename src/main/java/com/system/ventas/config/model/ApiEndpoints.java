@@ -8,7 +8,8 @@ public class ApiEndpoints {
     public static final String[] ENDPOINTS_ADMIN = {
             "/profile",
             "/v1/system/**",
-            "/v1/inventary/**"
+            "/v1/inventary/**",
+            "/v1/secutiry/**",
     };
 
     public static final String[] ENDPOINTS_MANAGER = {

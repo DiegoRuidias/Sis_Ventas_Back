@@ -23,6 +23,7 @@ public class UserRoles {
     
     @Id
     @Column(length = 36)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)

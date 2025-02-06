@@ -25,6 +25,7 @@ public class Roles {
     
     @Id
     @Column(length = 36)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(name = "is_active",nullable = false)
