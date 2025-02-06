@@ -1,5 +1,7 @@
 package com.system.ventas.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password","createdAt","updatedAt","deletedAt"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","createdAt","updatedAt","deletedAt"})
 @EntityListeners(AuditingEntityListener.class)
 public class Users {
 
@@ -32,6 +34,7 @@ public class Users {
     @Column(nullable = false, length = 600)
     private String name;
 
+    @JsonBackReference
     @Column(nullable = false, length = 255)
     private String password;
 

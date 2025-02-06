@@ -43,7 +43,6 @@ public class UserRolesServiceImpl implements UsersRolesService {
                 .map(role -> {
                     UserRoles userRole = userRolesMap.get(role.getId());
                     return UserRolesDTO.builder()
-                            .id(userRole != null ? userRole.getId() : null )
                             .roleId(role.getId())
                             .userId(userId)
                             .isActive(userRole != null ? userRole.getIsActive() : false)
@@ -67,7 +66,6 @@ public class UserRolesServiceImpl implements UsersRolesService {
                     Roles roles = rolesRepository.findById( urdto.getRoleId())
                             .orElseThrow(() -> new RuntimeException("Id del rol no existe: " + urdto.getRoleId()));
                     return UserRoles.builder()
-                            .id(urdto.getId())
                             .user(users)
                             .role(roles)
                             .isActive(urdto.getIsActive())

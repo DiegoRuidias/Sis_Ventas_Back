@@ -27,9 +27,8 @@ public class RolesServiceImpl implements RolesService{
     @Override
 	@Transactional
     public Roles create(Roles roles){
-        Integer max = rolesRepository.findMaxSort() + 1;
-        roles.setSort(max);
-        entityManager.persist(roles);
+        roles.setSort(1);
+        rolesRepository.save(roles);
         return roles;
     }
 
