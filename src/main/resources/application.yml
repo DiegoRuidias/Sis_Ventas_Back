@@ -6,6 +6,11 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: IuqHqBidTpHJuINaboBzfMcqfczsqjJV
+    hikari:
+      data-source-properties:
+        serverTimezone: America/Lima
+  jackson:
+    time-zone: America/Lima
   jpa:
     generate-ddl: false
     show-sql: true
