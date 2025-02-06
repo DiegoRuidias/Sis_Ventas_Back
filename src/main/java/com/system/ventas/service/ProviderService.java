@@ -8,4 +8,5 @@ public interface ProviderService {
     List<Provider> findAll();
     Provider save(Provider provider);
     Provider update(Provider provider);
+    void deleteProvider (String id);
 }

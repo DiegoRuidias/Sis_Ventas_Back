@@ -13,4 +13,5 @@ public interface ProductService {
     void reorder(Set<ReorderIntDTO> reorder);
     List<Products> findByStoreId (String storeId);
     PagedModel<Products> findByStoreIdPaged (int page, int size, String storeId, String searchText);
+    void update(ProductDTO product);
  }
