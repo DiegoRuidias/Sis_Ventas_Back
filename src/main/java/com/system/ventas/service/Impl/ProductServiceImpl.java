@@ -89,5 +89,16 @@ public class ProductServiceImpl implements ProductService {
         return new PagedModel<>(response);
     }
 
+    @Transactional
+    @Override
+    public void update(ProductDTO product) {
+        Products entity = productsRepository.findById(product.getId())
+                .orElseThrow(() -> new BusinessException("El Id del producto no existe"));
+        entity.setName(product.getName());
+        entity.setDescription(product.getDescription());
+        entity.setBarcode(product.getBarcode());
+
+    }
+
 
 }

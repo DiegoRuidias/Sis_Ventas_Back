@@ -15,4 +15,5 @@ public class ProductDTO {
     private String categoryId;
     private String measure;
     private String storeId;
+    private int id;
 }
